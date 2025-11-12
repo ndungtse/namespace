@@ -1,0 +1,31 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: namespace-app
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=./data/sqlite.db
+      - JWT_SECRET=${JWT_SECRET:-change-this-secret-key-in-production}
+      - ROOT_DOMAIN=${ROOT_DOMAIN:-localhost}
+    volumes:
+      - ./data:/app/data
+      - ./drizzle:/app/drizzle
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)}).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - namespace-network
+
+networks:
+  namespace-network:
+    driver: bridge
+
