@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { getSubdomainUrl } from "@/lib/subdomain";
 
 interface User {
   id: number;
@@ -20,10 +21,10 @@ interface User {
 
 interface DashboardClientProps {
   user: User;
-  subdomainUrl: string;
 }
 
-export default function DashboardClient({ user: initialUser, subdomainUrl }: DashboardClientProps) {
+export default function DashboardClient({ user: initialUser }: DashboardClientProps) {
+  const subdomainUrl = getSubdomainUrl(initialUser.username);
   const router = useRouter();
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);

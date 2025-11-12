@@ -3,6 +3,8 @@ import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { getHomepageUrl } from "@/lib/subdomain";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>;
@@ -27,12 +29,14 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     day: "numeric",
   });
 
+  const homepageUrl = getHomepageUrl();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800">
+    <div className="min-h-screen bg-linear-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-2xl mx-auto">
           <Link
-            href="/"
+            href={homepageUrl || "/"}
             className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 mb-8"
           >
             ← Back to home
@@ -40,17 +44,16 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
           <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-8">
             <div className="flex items-start gap-6 mb-6">
-              {user.avatarUrl ? (
-                <img
-                  src={user.avatarUrl}
+              <Avatar className="w-24 h-24">
+                <AvatarImage
+                  src={user.avatarUrl || undefined}
                   alt={user.displayName || user.username}
-                  className="w-24 h-24 rounded-full object-cover"
+                  className="object-cover"
                 />
-              ) : (
-                <div className="w-24 h-24 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-2xl font-semibold text-zinc-600 dark:text-zinc-400">
+                <AvatarFallback className="w-24 h-24 text-2xl font-semibold bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400 flex items-center justify-center">
                   {(user.displayName || user.username)[0].toUpperCase()}
-                </div>
-              )}
+                </AvatarFallback>
+              </Avatar>
               <div className="flex-1">
                 <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
                   {user.displayName || user.username}

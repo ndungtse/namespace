@@ -1,6 +1,9 @@
+"use client";
+import { getHomepageUrl, getSubdomainUrl } from "@/lib/subdomain";
 import Link from "next/link";
 
 export default function NotFound() {
+  const homepageUrl = getHomepageUrl();
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 flex items-center justify-center">
       <div className="text-center">
@@ -11,7 +14,7 @@ export default function NotFound() {
           Profile not found
         </p>
         <Link
-          href="/"
+          href={homepageUrl || "/"}
           className="inline-flex items-center px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
         >
           Go to home

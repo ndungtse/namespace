@@ -1,11 +1,11 @@
-import { SignJWT, jwtVerify } from "jose";
+import { SignJWT, jwtVerify , JWTPayload as JWTJWTPayload} from "jose";
 import bcrypt from "bcryptjs";
 
 const secret = new TextEncoder().encode(
   process.env.JWT_SECRET || "your-secret-key-change-this-in-production"
 );
 
-export interface JWTPayload {
+export interface JWTPayload extends JWTJWTPayload {
   userId: number;
   email: string;
   username: string;

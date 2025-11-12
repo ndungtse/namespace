@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 const RESERVED_SUBDOMAINS = ["www", "api", "admin", "app", "mail", "ftp"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const host = request.headers.get("host") || "";
   const rootDomain = process.env.ROOT_DOMAIN || "localhost";
   

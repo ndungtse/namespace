@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
-import { getSession } from "@/lib/session";
 import { db } from "@/db";
 import { users } from "@/db/schema";
+import { getSession } from "@/lib/session";
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 import DashboardClient from "./dashboard-client";
 
 export default async function DashboardPage() {
@@ -22,10 +22,6 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const rootDomain = process.env.ROOT_DOMAIN || "localhost";
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const subdomainUrl = `${protocol}://${user.username}.${rootDomain}`;
-
-  return <DashboardClient user={user} subdomainUrl={subdomainUrl} />;
+  return <DashboardClient user={user}  />;
 }
 

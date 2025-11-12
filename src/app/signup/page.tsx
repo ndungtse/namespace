@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { getSubdomainUrl } from "@/lib/subdomain";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -39,10 +40,7 @@ export default function SignupPage() {
         return;
       }
 
-      const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost";
-      const protocol = typeof window !== "undefined" && window.location.protocol === "https:" ? "https" : "http";
-      const port = typeof window !== "undefined" && window.location.port ? `:${window.location.port}` : "";
-      const subdomainUrl = `${protocol}://${formData.username}.${rootDomain}${port}`;
+      const subdomainUrl = getSubdomainUrl(formData.username);
       
       router.push(subdomainUrl);
     } catch (err) {

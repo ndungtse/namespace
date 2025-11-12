@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { hashPassword } from "@/lib/auth";
 import { createSession } from "@/lib/session";
 import { signupSchema } from "@/lib/validations";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,8 +14,7 @@ export async function POST(request: NextRequest) {
     const existingUser = await db
       .select()
       .from(users)
-      .where(eq(users.username, validated.username))
-      .orWhere(eq(users.email, validated.email))
+      .where(or(eq(users.username, validated.username), eq(users.email, validated.email)))
       .limit(1);
 
     if (existingUser.length > 0) {
