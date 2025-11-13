@@ -1,4 +1,4 @@
-# NameSpace - Subdomain Profile System
+# NameSpace - Subdomain Profile App
 
 A self-hosted multi-tenant application that allows users to sign up and get their own unique subdomain profile page (e.g., `username.localhost` or `username.example.com`). Built with Next.js, TypeScript, SQLite, and Drizzle ORM.
 

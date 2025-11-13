@@ -1,6 +1,5 @@
 **/.classpath
 **/.dockerignore
-**/.env
 **/.git
 **/.gitignore
 **/.project
@@ -11,7 +10,6 @@
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
-**/charts
 **/docker-compose*
 **/compose*
 **/Dockerfile*

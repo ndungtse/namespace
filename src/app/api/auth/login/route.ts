@@ -48,6 +48,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
+    console.error("Login error: ", error);
     if (error instanceof Error && error.name === "ZodError") {
       return NextResponse.json(
         { error: "Validation error", details: error },

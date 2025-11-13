@@ -4,6 +4,7 @@ import { getSession } from "@/lib/session";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { getSubdomainUrl } from "@/lib/subdomain";
 
 export default async function Home() {
   const session = await getSession();
@@ -22,6 +23,8 @@ export default async function Home() {
     user = userData;
   }
 
+  const subdomainUrl = getSubdomainUrl(user?.username || "");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800">
       <div className="container mx-auto px-4 py-16">
@@ -32,7 +35,7 @@ export default async function Home() {
           <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed">
             Sign up and get your unique subdomain profile page.
             <br />
-            Share your profile at <code className="px-2 py-1 bg-zinc-200 dark:bg-zinc-700 rounded text-sm">username.localhost</code>
+            Share your profile at <code className="px-2 py-1 bg-zinc-200 dark:bg-zinc-700 rounded text-sm">username.{process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost"}</code>
           </p>
 
           {user ? (
@@ -45,7 +48,7 @@ export default async function Home() {
                   <Link href="/dashboard">Go to Dashboard</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link href={`http://${user.username}.localhost:3000`} target="_blank">
+                  <Link href={subdomainUrl} target="_blank">
                     View Profile
                   </Link>
                 </Button>
