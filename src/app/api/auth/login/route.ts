@@ -11,15 +11,21 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validated = loginSchema.parse(body);
 
+    const isEmail = validated.emailOrUsername.includes("@");
+    
     const [user] = await db
       .select()
       .from(users)
-      .where(eq(users.email, validated.email))
+      .where(
+        isEmail
+          ? eq(users.email, validated.emailOrUsername)
+          : eq(users.username, validated.emailOrUsername)
+      )
       .limit(1);
 
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid email or password" },
+        { error: "Invalid email/username or password" },
         { status: 401 }
       );
     }
@@ -28,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     if (!isValid) {
       return NextResponse.json(
-        { error: "Invalid email or password" },
+        { error: "Invalid email/username or password" },
         { status: 401 }
       );
     }

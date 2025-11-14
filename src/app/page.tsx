@@ -35,7 +35,10 @@ export default async function Home() {
           <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed">
             Sign up and get your unique subdomain profile page.
             <br />
-            Share your profile at <code className="px-2 py-1 bg-zinc-200 dark:bg-zinc-700 rounded text-sm">username.{process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost"}</code>
+            Share your profile at{" "}
+            <code className="px-2 py-1 bg-zinc-200 dark:bg-zinc-700 rounded text-sm">
+              username.{process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost"}
+            </code>
           </p>
 
           {user ? (
@@ -44,14 +47,14 @@ export default async function Home() {
                 Welcome back, {user.displayName || user.username}!
               </p>
               <div className="flex gap-4 justify-center">
-                <Button asChild size="lg">
+                <Button size="lg" asChild>
                   <Link href="/dashboard">Go to Dashboard</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                {/* <Button asChild variant="outline" size="lg">
                   <Link href={subdomainUrl} target="_blank">
                     View Profile
                   </Link>
-                </Button>
+                </Button> */}
               </div>
             </div>
           ) : (
@@ -71,7 +74,8 @@ export default async function Home() {
                 Unique Subdomain
               </h3>
               <p className="text-zinc-600 dark:text-zinc-400">
-                Each user gets their own subdomain for a personalized profile URL.
+                Each user gets their own subdomain for a personalized profile
+                URL.
               </p>
             </div>
             <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-sm">
@@ -87,7 +91,8 @@ export default async function Home() {
                 Easy to Use
               </h3>
               <p className="text-zinc-600 dark:text-zinc-400">
-                Simple signup process and intuitive dashboard for managing your profile.
+                Simple signup process and intuitive dashboard for managing your
+                profile.
               </p>
             </div>
           </div>

@@ -1,5 +1,6 @@
 'use client';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { User } from "@/db/schema";
 import { getHomepageUrl } from "@/lib/subdomain";
 import Link from "next/link";
@@ -11,17 +12,27 @@ interface ProfileClientProps {
 
 export default function ProfileClient({ user, joinDate }: ProfileClientProps) {
   const homepageUrl = getHomepageUrl();
+  console.log("homepageUrl", homepageUrl);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-2xl mx-auto">
-          <Link
-            href={homepageUrl ?? "/s"}
+          {/* <Link
+            href={homepageUrl}
+            className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 mb-8"
+          > */}
+          <Button
+            onClick={() => {
+              window.location.href = homepageUrl ?? '/';
+            }}
+            variant={'link'}
             className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 mb-8"
           >
             ← Back to home
-          </Link>
+          </Button>
+          {/* </Link> */}
+
 
           <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-8">
             <div className="flex items-start gap-6 mb-6">

@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
+    emailOrUsername: "",
     password: "",
   });
 
@@ -51,7 +51,7 @@ export default function LoginPage() {
         <CardHeader>
           <CardTitle>Sign in</CardTitle>
           <CardDescription>
-            Enter your credentials to access your account
+            Enter your email or username and password to access your account
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -62,15 +62,15 @@ export default function LoginPage() {
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="emailOrUsername">Email or Username</Label>
               <Input
-                id="email"
-                type="email"
-                placeholder="john@example.com"
+                id="emailOrUsername"
+                type="text"
+                placeholder="john@example.com or john"
                 required
-                value={formData.email}
+                value={formData.emailOrUsername}
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, emailOrUsername: e.target.value })
                 }
               />
             </div>
